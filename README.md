@@ -11,6 +11,29 @@ from GDDecoder import GDLevels
 levels = GDLevels()
 ```
 
+Программа, меняющая название 1 уровня в игре
+
+```python
+from GDDecoder import GDLevels
+
+
+levels = GDLevels().load()  # Загрузка
+
+levels.levels["k_0"]["k2"] = "test text"  # Изменение названия
+
+levels.save()  # Сохранение
+```
+
+Чтобы понять, как обпратитьтся к нужному значению, можно использовать раскодированный файл сохранения, или посмотреть структуру словаря в debag'ере<br>
+
+![image](https://user-images.githubusercontent.com/58140098/114270215-5f6f3580-9a35-11eb-8b8a-b6803d03cdbe.png)
+
+Ключи **"k_0"**, **"k_1"** и тд хранаят словарь с данными о уроне<br>
+
+![image](https://user-images.githubusercontent.com/58140098/114270272-a4936780-9a35-11eb-8a7d-693297e9b82e.png)
+
+В ключе **"k2"** хранится название уровня.
+
 Чтобы начать процесс раскодирования, нуждно использовать метод **load()**. Так же можно сразу произвести раскодирование при создании объекта.
 ```python
 levels = GDLevels().load()
