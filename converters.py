@@ -1,4 +1,4 @@
-# tolist -> dict
+# string -> dict
 def strtodict(sp: str, i: int = 3) -> (dict, int):
 
     """
