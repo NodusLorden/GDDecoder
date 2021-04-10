@@ -34,7 +34,7 @@ class GDLevels:
     def load(self):
         self.plist = fromgzip(frombase64(xor(self.bfile)))
         self.filedict = strtodict(self.plist)[0]
-        self.levels = self.filedict["LLM_01"]
+        self.levels = self.filedict["LLM_01"].copy()
         self.rude["LLM_02"] = self.filedict.pop("LLM_02")
         self.rude["_isArr"] = self.levels.pop("_isArr")
         return self
