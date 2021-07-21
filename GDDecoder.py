@@ -3,6 +3,7 @@ import getpass
 from decoders import *
 from converters import *
 from json import dump, load
+from EditorConverter import LevelEditor
 
 
 class GDLevels:
@@ -37,6 +38,7 @@ class GDLevels:
         self.levels = self.filedict["LLM_01"].copy()
         self.rude["LLM_02"] = self.filedict.pop("LLM_02")
         self.rude["_isArr"] = self.levels.pop("_isArr")
+
         return self
 
     def save(self):
@@ -49,13 +51,27 @@ class GDLevels:
         return True
 
     def createloadpoint(self, path: str = "point.json"):
-        if not (self.levels and self.rude and self.convertkey):
+        if not (self.levels and self.rude and self.plist):
             self.load()
         with open(path, "w") as f:
-            dump([self.FILEPATH, self.savepath, self.levels, self.rude, self.convertkey], f)
+            dump([self.FILEPATH, self.savepath, self.plist, self.levels, self.rude, self.convertkey], f)  # json.dump()
+        print("Point create")
         return self
 
     def fastload(self, path: str = "point.json"):
         with open(path) as f:
-            self.FILEPATH, self.savepath, self.levels, self.rude, self.convertkey = load(f)
+            self.FILEPATH, self.savepath, self.plist, self.levels, self.rude, self.convertkey = load(f)  # json.load()
+        print("Point load")
         return self
+
+    def loadeditor(self, number: int):
+        if self.convertkey:
+            pass
+        else:
+            return LevelEditor(self.levels[f"k_{(number - 1)}"]["k4"])
+
+    def saveeditor(self, number: int, editor: LevelEditor):
+        if self.convertkey:
+            pass
+        else:
+            self.levels[f"k_{(number - 1)}"]["k4"] = editor.damp()
